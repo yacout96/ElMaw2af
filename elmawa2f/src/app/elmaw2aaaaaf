@@ -1,0 +1,91 @@
+package elmaw2af;
+
+
+import com.mysql.cj.jdbc.CallableStatement;
+
+import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+
+
+import java.util.List;
+
+import javax.json.*;
+
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
+import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
+
+
+
+
+
+@Path("/Main")
+public class Main {
+
+	
+	@Path("/GetLocations")
+    @GET
+	public  ArrayList<String> GetLocations () {
+		
+		int i=0;
+	   ArrayList<String> r = new ArrayList<String>();
+	   JsonArray result = null;
+		try {
+			Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/elmaw2af?useSSL=false", "root",
+					"cs12345678");			
+			CallableStatement cs = (CallableStatement) myConn.prepareCall("{call ViewAreas ( )  }");
+		
+			cs.execute();
+			ResultSet rs = cs.getResultSet();
+			while(rs.next()) {
+			System.out.println(rs.getString("AreaName"));
+			r.add(rs.getString("AreaName"));
+			result.add(i,(JsonValue) (Json.createObjectBuilder().add("Location",rs.getString("AreaName"))));
+			
+			i++;
+			}
+			
+			return 	r;	}
+		catch(Exception exc) {
+			exc.printStackTrace();
+		}
+		return r;
+	}
+	public static void main (String args []) {
+		
+		ArrayList<String> result = new ArrayList<String>();
+		try {
+			Connection myConn = DriverManager.getConnection("jdbc:mysql://localhost:3306/elmaw2af?useSSL=false", "root",
+					"cs12345678");			
+			CallableStatement cs = (CallableStatement) myConn.prepareCall("{call ViewAreas ( )  }");
+		
+			cs.execute();
+			ResultSet rs = cs.getResultSet();
+			while(rs.next()) {
+			System.out.println(rs.getString("AreaName"));
+			result.add(rs.getString("AreaName"));
+			
+			}
+			
+					}
+		catch(Exception exc) {
+			exc.printStackTrace();
+		}
+	}
+}

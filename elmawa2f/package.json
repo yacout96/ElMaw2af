@@ -1,5 +1,5 @@
 {
-  "name": "elmawa2f",
+  "name": "elmaw2af",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
@@ -12,6 +12,7 @@
   },
   "private": true,
   "dependencies": {
+    "@agm/core": "^1.0.0-beta.5",
     "@angular/animations": "^5.2.0",
     "@angular/common": "^5.2.0",
     "@angular/compiler": "^5.2.0",
@@ -22,7 +23,11 @@
     "@angular/platform-browser-dynamic": "^5.2.0",
     "@angular/router": "^5.2.0",
     "core-js": "^2.4.1",
-    "rxjs": "^5.5.6",
+    "npm": "^6.4.1",
+    "rxjs": "^6.3.3",
+    "rxjs-compat": "^6.3.3",
+    "to": "^0.2.9",
+    "update": "^0.7.4",
     "zone.js": "^0.8.19"
   },
   "devDependencies": {
